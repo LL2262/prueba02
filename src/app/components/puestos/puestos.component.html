@@ -1,0 +1,111 @@
+<div class="row justify-content-center">
+  <div class="col-md-4">
+    <div class="jumbotron pad">
+      <h2>Puestos</h2>
+      <div class="form-group">
+        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#newPuesto">Nuevo Puesto</button>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th style="width: 10%">#</th>
+              <th style="width: 50%">Nombre</th>
+              <th style="width: 40%"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let puesto of puestos; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{puesto.nombre}}</td>
+              <td class="text-right">
+                <button class="btn btn-success btn-sm mr-2" type="button"><i class="fa fa-search"></i></button>
+                <button class="btn btn-warning btn-sm mr-2" type="button" (click)="openModalEdit(puesto)"><i
+                    class="fa fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm" type="button" (click)="openModalDelete(puesto)"><i
+                    class="fa fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal New Puesto -->
+<div class="modal fade" id="newPuesto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo Puesto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form #newPuesto="ngForm" (submit)="addPuesto(newPuesto)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" name="nombre" [(ngModel)]="puesto.nombre">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"
+            (click)="newPuesto.reset()">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Delete Puesto-->
+<div class="modal fade" id="deletePuesto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Puesto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Estas seguro que deseas eliminar <strong>{{puesto.nombre}}</strong>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+          (click)="cargarPuestos(); puesto = {}">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="deletePuesto()">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal Edit Puesto -->
+  <div class="modal fade" id="editPuesto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar Puesto</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form #newPuesto="ngForm" (submit)="editPuesto(newPuesto)">
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" class="form-control" name="nombre" [(ngModel)]="puesto.nombre">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cargarPuestos(); puesto = {}">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
